@@ -36,23 +36,29 @@ public class Radio {
     }
 
     public void setCurrentRadioStation(int currentRadioStation) {
-        if (currentRadioStation < minValue) {
-            currentRadioStation = maxValue;
-        }
-        if (currentRadioStation > maxValue) {
+        if (currentRadioStation <= minValue) {
             currentRadioStation = minValue;
+        }
+        if (currentRadioStation >= maxValue) {
+            currentRadioStation = maxValue;
         }
         this.currentRadioStation = currentRadioStation;
     }
 
     public void increaseRadioStation() {
-        if (currentRadioStation > minValue && currentRadioStation < maxValue) {
+        if (currentRadioStation == maxValue) {
+            currentRadioStation = minValue;
+        }
+        else {
             currentRadioStation++;
         }
     }
 
     public void decreaseRadioStation() {
-        if (currentRadioStation > minValue && currentRadioStation < maxValue) {
+        if (currentRadioStation == minValue) {
+            currentRadioStation = maxValue;
+        }
+        else {
             currentRadioStation--;
         }
     }
