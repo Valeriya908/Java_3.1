@@ -6,15 +6,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
 
+    //    Volume
+
     //    Set Current Volume Test
 
     @Test
-    void shouldSetCurrentVolumeUnderMin() {
+    void shouldSetCurrentVolumeInsideRangeLimit() {
         Radio rad = new Radio();
 
-        rad.setCurrentVolume(-1);
+        rad.setCurrentVolume(30);
 
-        int expected = 0;
+        int expected = 30;
         int actual = rad.getCurrentVolume();
 
         assertEquals(expected, actual);
@@ -33,36 +35,36 @@ class RadioTest {
     }
 
     @Test
-    void shouldSetCurrentVolumeOverMax() {
-        Radio rad = new Radio();
-
-        rad.setCurrentVolume(11);
-
-        int expected = 10;
-        int actual = rad.getCurrentVolume();
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
     void shouldSetCurrentVolumeMax() {
         Radio rad = new Radio();
 
-        rad.setCurrentVolume(10);
+        rad.setCurrentVolume(100);
 
-        int expected = 10;
+        int expected = 100;
         int actual = rad.getCurrentVolume();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void shouldSetCurrentVolumeInsideRangeLimit() {
+    void shouldSetCurrentVolumeUnderMin() {
         Radio rad = new Radio();
 
-        rad.setCurrentVolume(8);
+        rad.setCurrentVolume(-1);
 
-        int expected = 8;
+        int expected = 0;
+        int actual = rad.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSetCurrentVolumeOverMax() {
+        Radio rad = new Radio();
+
+        rad.setCurrentVolume(101);
+
+        int expected = 100;
         int actual = rad.getCurrentVolume();
 
         assertEquals(expected, actual);
@@ -73,24 +75,24 @@ class RadioTest {
     @Test
     void shouldIncreaseVolumeInsideRangeLimit() {
         Radio rad = new Radio();
-        rad.setCurrentVolume(7);
+        rad.setCurrentVolume(25);
 
         rad.increaseVolume();
 
-        int expected = 8;
+        int expected = 26;
         int actual = rad.getCurrentVolume();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void shouldIncreaseVolumeOverMax() {
+    void shouldIncreaseVolumeMin() {
         Radio rad = new Radio();
-        rad.setCurrentVolume(11);
+        rad.setCurrentVolume(0);
 
         rad.increaseVolume();
 
-        int expected = 10;
+        int expected = 1;
         int actual = rad.getCurrentVolume();
 
         assertEquals(expected, actual);
@@ -99,11 +101,24 @@ class RadioTest {
     @Test
     void shouldIncreaseVolumeMax() {
         Radio rad = new Radio();
-        rad.setCurrentVolume(10);
+        rad.setCurrentVolume(100);
 
         rad.increaseVolume();
 
-        int expected = 10;
+        int expected = 100;
+        int actual = rad.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldIncreaseVolumeOverMax() {
+        Radio rad = new Radio();
+        rad.setCurrentVolume(101);
+
+        rad.increaseVolume();
+
+        int expected = 100;
         int actual = rad.getCurrentVolume();
 
         assertEquals(expected, actual);
@@ -114,24 +129,11 @@ class RadioTest {
     @Test
     void shouldDecreaseVolumeInsideRangeLimit() {
         Radio rad = new Radio();
-        rad.setCurrentVolume(6);
+        rad.setCurrentVolume(50);
 
         rad.decreaseVolume();
 
-        int expected = 5;
-        int actual = rad.getCurrentVolume();
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldDecreaseVolumeUnderMin() {
-        Radio rad = new Radio();
-        rad.setCurrentVolume(-1);
-
-        rad.decreaseVolume();
-
-        int expected = 0;
+        int expected = 49;
         int actual = rad.getCurrentVolume();
 
         assertEquals(expected, actual);
@@ -150,10 +152,62 @@ class RadioTest {
         assertEquals(expected, actual);
     }
 
-//    Set RadioStation Test
+    @Test
+    void shouldDecreaseVolumeMax() {
+        Radio rad = new Radio();
+        rad.setCurrentVolume(100);
+
+        rad.decreaseVolume();
+
+        int expected = 99;
+        int actual = rad.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
 
     @Test
-    void shouldSetCurrentRadioStationUnderMin() {
+    void shouldDecreaseVolumeUnderMin() {
+        Radio rad = new Radio();
+        rad.setCurrentVolume(-1);
+
+        rad.decreaseVolume();
+
+        int expected = 0;
+        int actual = rad.getCurrentVolume();
+
+        assertEquals(expected, actual);
+    }
+
+    //    RadioStation
+
+    //    Set RadioStation Test Base Modify
+
+    @Test
+    void shouldSetCurrentRadioStationBaseModifyInsideRange() {
+        Radio rad = new Radio();
+
+        rad.setCurrentRadioStation(8);
+
+        int expected = 8;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSetCurrentRadioStationBaseModifyMin() {
+        Radio rad = new Radio();
+
+        rad.setCurrentRadioStation(0);
+
+        int expected = 0;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSetCurrentRadioStationBaseModifyUnderMin() {
         Radio rad = new Radio();
 
         rad.setCurrentRadioStation(-1);
@@ -165,31 +219,7 @@ class RadioTest {
     }
 
     @Test
-    void shouldSetCurrentRadioStationMin() {
-        Radio rad = new Radio();
-
-        rad.setCurrentRadioStation(0);
-
-        int expected = 0;
-        int actual = rad.getCurrentRadioStation();
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldSetCurrentRadioStationInsideRangeLimit() {
-        Radio rad = new Radio();
-
-        rad.setCurrentRadioStation(7);
-
-        int expected = 7;
-        int actual = rad.getCurrentRadioStation();
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldSetCurrentRadioStationMax() {
+    void shouldSetCurrentRadioStationBaseModifyMax() {
         Radio rad = new Radio();
 
         rad.setCurrentRadioStation(9);
@@ -201,7 +231,7 @@ class RadioTest {
     }
 
     @Test
-    void shouldSetCurrentRadioStationOverMax() {
+    void shouldSetCurrentRadioStationBaseModifyOverMax() {
         Radio rad = new Radio();
 
         rad.setCurrentRadioStation(10);
@@ -212,24 +242,88 @@ class RadioTest {
         assertEquals(expected, actual);
     }
 
-//    Increase RadioStation Test
+    //    Set RadioStation Test User Modify
 
     @Test
-    void shouldIncreaseRadioStationInsideRangeLimit() {
-        Radio rad = new Radio();
-        rad.setCurrentRadioStation(1);
+    void shouldSetCurrentRadioStationUserModifyInsideRange() {
+        Radio rad = new Radio(25);
 
-        rad.increaseRadioStation();
+        rad.setCurrentRadioStation(15);
 
-        int expected = 2;
+        int expected = 15;
         int actual = rad.getCurrentRadioStation();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void shouldIncreaseRadioStationMin() {
+    void shouldSetCurrentRadioStationUserModifyMin() {
+        Radio rad = new Radio(25);
+
+        rad.setCurrentRadioStation(0);
+
+        int expected = 0;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSetCurrentRadioStationUserModifyUnderMin() {
+        Radio rad = new Radio(25);
+
+        rad.setCurrentRadioStation(-10);
+
+        int expected = 0;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSetCurrentRadioStationUserModifyMax() {
+        Radio rad = new Radio(25);
+
+        rad.setCurrentRadioStation(24);
+
+        int expected = 24;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSetCurrentRadioStationUserModifyOverMax() {
+        Radio rad = new Radio(25);
+
+        rad.setCurrentRadioStation(27);
+
+        int expected = 24;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    //    Increase RadioStation Test Base Modify
+
+    @Test
+    void shouldIncreaseRadioStationBaseModifyInsideRangeLimit() {
         Radio rad = new Radio();
+
+        rad.setCurrentRadioStation(6);
+
+        rad.increaseRadioStation();
+
+        int expected = 7;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldIncreaseRadioStationBaseModifyMin() {
+        Radio rad = new Radio();
+
         rad.setCurrentRadioStation(0);
 
         rad.increaseRadioStation();
@@ -241,8 +335,9 @@ class RadioTest {
     }
 
     @Test
-    void shouldIncreaseRadioStationMax() {
+    void shouldIncreaseRadioStationBaseModifyMax() {
         Radio rad = new Radio();
+
         rad.setCurrentRadioStation(9);
 
         rad.increaseRadioStation();
@@ -254,8 +349,9 @@ class RadioTest {
     }
 
     @Test
-    void shouldIncreaseRadioStationOverMax() {
+    void shouldIncreaseRadioStationBaseModifyOverMax() {
         Radio rad = new Radio();
+
         rad.setCurrentRadioStation(10);
 
         rad.increaseRadioStation();
@@ -266,10 +362,68 @@ class RadioTest {
         assertEquals(expected, actual);
     }
 
-    //    Decrease RadioStation Test
+    //    Increase RadioStation Test User Modify
 
     @Test
-    void shouldDecreaseRadioStationInsideRangeLimit() {
+    void shouldIncreaseRadioStationUserModifyInsideRangeLimit() {
+        Radio rad = new Radio(25);
+
+        rad.setCurrentRadioStation(16);
+
+        rad.increaseRadioStation();
+
+        int expected = 17;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldIncreaseRadioStationUserModifyMin() {
+        Radio rad = new Radio(25);
+
+        rad.setCurrentRadioStation(0);
+
+        rad.increaseRadioStation();
+
+        int expected = 1;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldIncreaseRadioStationUserModifyMax() {
+        Radio rad = new Radio(25);
+
+        rad.setCurrentRadioStation(24);
+
+        rad.increaseRadioStation();
+
+        int expected = 0;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldIncreaseRadioStationUserModifyOverMax() {
+        Radio rad = new Radio(25);
+
+        rad.setCurrentRadioStation(25);
+
+        rad.increaseRadioStation();
+
+        int expected = 0;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    //    Decrease RadioStation Test Base Modify
+
+    @Test
+    void shouldDecreaseRadioStationBaseModifyInsideRangeLimit() {
         Radio rad = new Radio();
         rad.setCurrentRadioStation(5);
 
@@ -282,7 +436,7 @@ class RadioTest {
     }
 
     @Test
-    void shouldDecreaseRadioStationMin() {
+    void shouldDecreaseRadioStationBaseModifyMin() {
         Radio rad = new Radio();
         rad.setCurrentRadioStation(0);
 
@@ -295,7 +449,7 @@ class RadioTest {
     }
 
     @Test
-    void shouldDecreaseRadioStationMax() {
+    void shouldDecreaseRadioStationBaseModifyMax() {
         Radio rad = new Radio();
         rad.setCurrentRadioStation(9);
 
@@ -308,13 +462,67 @@ class RadioTest {
     }
 
     @Test
-    void shouldDecreaseRadioStationUnderMin() {
+    void shouldDecreaseRadioStationBaseModifyUnderMin() {
         Radio rad = new Radio();
         rad.setCurrentRadioStation(-1);
 
         rad.decreaseRadioStation();
 
         int expected = 9;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    //    Decrease RadioStation Test User Modify
+
+    @Test
+    void shouldDecreaseRadioStationUserModifyInsideRangeLimit() {
+        Radio rad = new Radio(25);
+        rad.setCurrentRadioStation(16);
+
+        rad.decreaseRadioStation();
+
+        int expected = 15;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldDecreaseRadioStationUserModifyMin() {
+        Radio rad = new Radio(25);
+        rad.setCurrentRadioStation(0);
+
+        rad.decreaseRadioStation();
+
+        int expected = 24;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldDecreaseRadioStationUserModifyMax() {
+        Radio rad = new Radio(25);
+        rad.setCurrentRadioStation(24);
+
+        rad.decreaseRadioStation();
+
+        int expected = 23;
+        int actual = rad.getCurrentRadioStation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldDecreaseRadioStationUserModifyUnderMin() {
+        Radio rad = new Radio(25);
+        rad.setCurrentRadioStation(-1);
+
+        rad.decreaseRadioStation();
+
+        int expected = 24;
         int actual = rad.getCurrentRadioStation();
 
         assertEquals(expected, actual);
